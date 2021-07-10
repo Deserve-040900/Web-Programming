@@ -1,12 +1,17 @@
 var datasource = require('./dataSource/simple-datasource')
 var model = require('./model/model').create(datasource)
 
+//=====================================================
 // setup web app
+//=====================================================
 var express = require('express')
 var app = express()
 
 app.set('view engine','ejs')
-app.set(require('cookie-parser')())
+app.use(require('cookie-parser')())
+
+var multer = require('multer')
+var upload = multer({ dest: 'tmp/'})
 
 var router = express.Router()
 router.use(express.static('public'))
@@ -33,9 +38,19 @@ router.get('/logout', function(request, reponse){
     controller('logout').get(request, reponse, webconfig)
 })
 
+router.get('/edit-general-info', function(request, reponse){
+    controller('edit-general-info').get(request, reponse, webconfig, model)
+})
+
+router.post('/edit-general-info', upload.single('featureImage'), function(request, reponse){
+    controller('edit-general-info').post(request, reponse, webconfig, model)
+})
+
 app.use(webconfig.root, router)
 
+//=====================================================
 // start web app
+//=====================================================
 app.listen(8080, function(){
     console.log('Sever started ok !')
 })
