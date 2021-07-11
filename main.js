@@ -46,11 +46,19 @@ router.post('/edit-general-info', upload.single('featureImage'), function(reques
     controller('edit-general-info').post(request, reponse, webconfig, model)
 })
 
+router.get('/edit-about', function(request, reponse){
+    controller('edit-about').get(request, reponse, webconfig, model)
+})
+
+router.post('/edit-about', urlencodedparser, function(request, reponse){
+    controller('edit-about').post(request, reponse, webconfig, model)
+})
+
 app.use(webconfig.root, router)
 
 //=====================================================
 // start web app
 //=====================================================
 app.listen(8080, function(){
-    console.log('Sever started ok !')
+    console.log('Sever Started OK !')
 })

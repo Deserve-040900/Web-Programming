@@ -1,8 +1,8 @@
 <div class="w3-container" id="about">
     <h3 class="w3-border-bottom">About</h3>
-    <p>Hello, World</p>
+    <p><%= about %>></p>
     <% if(logged) { %>
-        <a class="w3-button w3-blue">Edit</a>
+        <a class="w3-button w3-blue" href="<%= root %>edit-about">Edit</a>
     <% } %>
 </div>
 
