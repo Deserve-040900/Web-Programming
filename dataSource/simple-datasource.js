@@ -1,4 +1,5 @@
 var fs = require('fs')
+const { parse } = require('path/posix')
 
 function path(file){
     return 'data/' + file
@@ -40,4 +41,64 @@ exports.loadAbout = function(callback){
 
 exports.saveAbout = function(text, callback){
     fs.writeFile(path('about.txt'), text, callback)
+}
+
+function getProductsFolder(){
+    return path('products')
+}
+
+function parseProductId(jsonFileName){
+    var idString = jsonFileName.substring(0, jsonFileName.length - 5)
+    return parseInt(idString)
+}
+
+exports.loadProducts = function(callback){
+    var folder = getProductsFolder()
+
+    fs.readdir(folder, function(err, flies){
+        var count = 0
+        var total = flies.length
+        var products = []
+
+        for(var i = 0; i < total; ++i){
+            var filePath = folder + '/' + flies[i]
+            var productId = parseProductId(flies[i])
+
+            loadProduct(productId, filePath, function(product){
+                products.push(product)
+                ++count
+                if(count == total){
+                    callback(products)
+                }
+            })
+        }
+    })
+}
+
+function getNewProductId(folder, callback){
+    fs.readdir(folder, function(err, files){
+        var max = 0
+        for(var i = 0; i < files.length; ++i){
+            var productId = parseProductId(files[i])
+            if(productId > max){
+                max = productId
+            }
+        }
+        callback(max + 1)
+    })
+}
+
+exports.addProduct = function(name, imageTmpPath, callback){
+    var folder = getProductsFolder()
+
+    getNewProductId(folder, function(id){
+        var product = { name : name }
+        fs.writeFile(folder + '/' + id + '.json', JSON.stringify(product), function(err){
+            if(err){
+                callback(err)
+                return
+            }
+            fs.rename(imageTmpPath, 'public/images/products/' + id + '.jpg', callback)
+        })
+    })
 }

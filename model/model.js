@@ -41,6 +41,26 @@ exports.create = function(datasource){
                 }
                 callback(false)
             })
+        },
+        //=========================================
+        getProducts : datasource.loadProducts,
+        //=========================================
+        addProduct : function(name, imageTmpPath, callback){
+            if(name == ''){
+                callback('Product name can be empty')
+                return
+            }
+            if(imageTmpPath == ''){
+                callback('Product image can be empty')
+                return
+            }
+            datasource.addProduct(name, imageTmpPath, function(err){
+                if(err){
+                    callback('Could not add the product')
+                    return
+                }
+                callback(false)
+            })
         }
     }
 }

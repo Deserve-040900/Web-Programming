@@ -54,6 +54,14 @@ router.post('/edit-about', urlencodedparser, function(request, reponse){
     controller('edit-about').post(request, reponse, webconfig, model)
 })
 
+router.get('/add-product', function(request, reponse){
+    controller('add-product').get(request, reponse, webconfig, model)
+})
+
+router.post('/add-product', upload.single('productImage'), function(request, reponse){
+    controller('add-product').post(request, reponse, webconfig, model)
+})
+
 app.use(webconfig.root, router)
 
 //=====================================================
