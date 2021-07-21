@@ -2,6 +2,7 @@ var session = require('./session')
 
 exports.get = function(request, reponse, webconfig, model) {
     var logged = session.logged(request)
+    
     model.getGeneralInfo(function(generalInfo){
         model.getProducts(function(products){
             model.getAbout(function(about){

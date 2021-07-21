@@ -47,11 +47,11 @@ exports.create = function(datasource){
         //=========================================
         addProduct : function(name, imageTmpPath, callback){
             if(name == ''){
-                callback('Product name can be empty')
+                callback('Product name cannot be empty')
                 return
             }
             if(imageTmpPath == ''){
-                callback('Product image can be empty')
+                callback('Product image cannot be empty')
                 return
             }
             datasource.addProduct(name, imageTmpPath, function(err){
@@ -61,6 +61,11 @@ exports.create = function(datasource){
                 }
                 callback(false)
             })
-        }
+        },
+        //=========================================
+        getProduct : datasource.loadSingleProduct,
+        //=========================================
+        deleteProduct : datasource.deleteProduct,
+        //=========================================
     }
 }

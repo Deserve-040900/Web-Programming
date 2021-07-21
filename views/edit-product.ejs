@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= generalInfo.companyNameShort %> <%= generalInfo.companyNameLong %> - Edit General Info</title>
+    <title><%= generalInfo.companyNameShort %> <%= generalInfo.companyNameLong %> - Edit Product</title>
     <link rel="stylesheet" href="w3.css">
     <link rel="stylesheet" href="CSS/showroom.css">
 </head>
@@ -13,7 +13,7 @@
 
     <div class="w3-content w3-padding w3-card" style="max-width: 400px">
         <div class="w3-container w3-padding-32">
-            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit general-info</h3>
+            <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Edit Product</h3>
 
             <% if (errorMessage) { %>
                 <div class="w3-text-red"><p><%= errerMesage %></p></div>
@@ -21,13 +21,18 @@
 
             <form action="" method="post" enctype="multipart/form-data">
                 <p>
+                    <label>Product Id (can be edited)</label>
+                    <input class="w3-input w3-border fixedinput w3-light-grey" type="text" name="productId" value="<%= product.id %>" readonly>
+                </p>
+
+                <p>
                     <label>Product name</label>
-                    <input class="w3-input w3-border fixedinput" type="text" name="productName" required>
+                    <input class="w3-input w3-border fixedinput" type="text" name="productName" value="<%= product.name %>" required>
                 </p>
 
                 <p>
                     <label>Product image (.jpg)</label>
-                    <input class="w3-input w3-border fixedinput" type="file" name="productImage" accept=".jpg" required>
+                    <input class="w3-input w3-border fixedinput" type="file" name="productImage" accept=".jpg">
                 </p>
 
                 <div class="w3-center">

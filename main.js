@@ -62,6 +62,18 @@ router.post('/add-product', upload.single('productImage'), function(request, rep
     controller('add-product').post(request, reponse, webconfig, model)
 })
 
+router.get('/edit-product', function(request, reponse){
+    controller('edit-product').get(request, reponse, webconfig, model)
+})
+
+router.post('/edit-product', upload.single('productImage'), function(request, reponse){
+    controller('edit-product').post(request, reponse, webconfig, model)
+})
+
+router.get('/delete-product', function(request, reponse){
+    controller('delete-product').get(request, reponse, webconfig, model)
+})
+
 app.use(webconfig.root, router)
 
 //=====================================================
