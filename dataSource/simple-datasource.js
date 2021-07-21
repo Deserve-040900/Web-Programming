@@ -74,14 +74,14 @@ function sortProducts(products){
 exports.loadProducts = function(callback){
     var folder = getProductsFolder()
 
-    fs.readdir(folder, function(err, flies){
+    fs.readdir(folder, function(err, files){
         var count = 0
-        var total = flies.length
+        var total = files.length
         var products = []
 
         for(var i = 0; i < total; ++i){
-            var filePath = folder + '/' + flies[i]
-            var productId = parseProductId(flies[i])
+            var filePath = folder + '/' + files[i]
+            var productId = parseProductId(files[i])
 
             loadProduct(productId, filePath, function(product){
                 products.push(product)
@@ -121,9 +121,7 @@ exports.addProduct = function(editProductID, name, imageTmpPath, callback){
             if(imageTmpPath != ''){
                 fs.rename(imageTmpPath, 'public/images/products/' + id + '.jpg', callback)
             }
-            else{
-                callback(false)
-            }
+            callback(false)
         })
 
         if(editProductID == 0)
