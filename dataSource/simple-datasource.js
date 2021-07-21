@@ -121,14 +121,15 @@ exports.addProduct = function(editProductID, name, imageTmpPath, callback){
             if(imageTmpPath != ''){
                 fs.rename(imageTmpPath, 'public/images/products/' + id + '.jpg', callback)
             }
-            callback(false)
+            else{
+                callback(false)
+            }
         })
-
-        if(editProductID == 0)
-            getNewProductId(folder, saveProduct)
-        else
-            saveProduct(editProductID)
     }
+    if(editProductID == 0)
+        getNewProductId(folder, saveProduct)
+    else
+        saveProduct(editProductID)
 }
 
 exports.loadSingleProduct = function(productId, callback){
